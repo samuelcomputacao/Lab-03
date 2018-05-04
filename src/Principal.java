@@ -3,6 +3,7 @@ import java.util.Scanner;
 public class Principal {
 	
 	private static Agenda agenda = new Agenda();
+	private static Scanner scan = new Scanner(System.in);
 	
 	public static void main(String[] args) {
 		
@@ -10,16 +11,16 @@ public class Principal {
 	
 		
 		while(continua) {
-			String acao = Agenda.exibirMenu();
+			String acao = exibirMenu();
 			if(acao.equals(Constantes.SAIR.getValor())) {
 				continua = false;
 			}else if(acao.equals(Constantes.CADASTRAR.getValor())) {
-				Object[] retorno = criaContato();
-				if(retorno==null) {
-					System.out.println(Constantes.POSICAO_I.getValor());
-				}else {
-					agenda.cadastrarContato((Contato) retorno[0], (int) retorno[1]);
+				boolean criar =  criaContato();
+				if(criar) {
 					System.out.println(Constantes.CADASTRADO.getValor());
+				}else {
+					System.out.println(Constantes.POSICAO_I.getValor());
+					
 				}
 			}else if(acao.equals(Constantes.LISTAR.getValor())) {
 				agenda.listarContato();
@@ -40,28 +41,27 @@ public class Principal {
 				System.out.println("\n"+Constantes.INVALIDA.getValor()+"\n\n");
 			}
 		}
+		scan.close();
 		
 	}
 	
 	
 	private static int pegaPosicao() {
-		Scanner scan = new Scanner(System.in);
 		System.out.print("Contato> ");
 		int i = Integer.parseInt(scan.nextLine());
-		if (i<1 || i >100) return -1;
+		if (i<1 || i >100) {
+			return -1;
+		}
 		return i;
 		
 	}
 
 
-	private static Object[] criaContato() {
-		Scanner scan = new Scanner(System.in);
+	private static boolean criaContato() {
 		
 		System.out.print("Posição: ");
 		int i = Integer.parseInt(scan.nextLine());
-		if(i<1 || i>100) {
-			 return null;
-		}
+		
 		System.out.print("Nome: ");
 		String nome = scan.nextLine();
 		
@@ -70,15 +70,20 @@ public class Principal {
 		
 		System.out.print("Telefone: ");
 		String telefone = scan.nextLine();
+		return agenda.cadastrarContato(nome, sobrenome,telefone,i);
 		
-		Contato contato = new Contato();
-		contato.setNome(nome);
-		contato.setSobreNome(sobrenome);
-		contato.setTelefone(telefone);
-		
-		Object[] retorno  = {contato,i};
-		
-		return retorno;
+	}
+	
+	private  static String exibirMenu() {
+		System.out.println("--------AGENDA---------");
+		System.out.println("| (C)adastrar Contato |");
+		System.out.println("| (L)istar Contatos   |");
+		System.out.println("| (E)xibir Contato    |");
+		System.out.println("| (S)air              |");
+		System.out.println("-----------------------\n");
+		System.out.print("Opção> ");
+		String opcao = scan.nextLine();
+		return opcao;
 	}
 
 

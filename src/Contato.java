@@ -5,26 +5,15 @@ public class Contato {
 	private String sobrenome;
 	private String telefone;
 	
-	public String getNome() {
-		return nome;
-	}
-	public void setNome(String nome) {
+	public Contato(String nome, String sobrenome, String telefone) {
 		this.nome = nome;
-	}
-	public String getSobreNome() {
-		return sobrenome;
-	}
-	public void setSobreNome(String sobreome) {
 		this.sobrenome = sobrenome;
-	}
-	public String getTelefone() {
-		return telefone;
-	}
-	public void setTelefone(String telefone) {
 		this.telefone = telefone;
 	}
 	
+	@Override
+	public String toString() {
+		return "Contato : "+ this.nome + " "+ this.sobrenome + " - "+ this.telefone;
+	}
 	
-	
-
 }
