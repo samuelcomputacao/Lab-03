@@ -1,3 +1,4 @@
+package com.samuel.lab3.model;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -50,6 +51,9 @@ public class Agenda {
 		if(i<1 || i>100) {
 			throw new RuntimeException("POSIÇÃO INVÁLIDA");
 		}
+		if(this.contatos[i-1]==null) {
+			throw new RuntimeException("POSIÇÃO INVÁLIDA");
+		}
 		return this.contatos[i-1].toString();
 	}
 
@@ -91,6 +95,14 @@ public class Agenda {
 		this.contatos[i-1] = contato;
 		return true;
 	}
+	public boolean cadastrarContato(String nome, String sobrenome, Telefone[] telefones,int nivel,int i) {
+		if(i<1 || i>100) {
+			 throw new RuntimeException("POSIÇÃO INVÁLIDA");
+		}
+		Contato contato = new Contato(nome,sobrenome,telefones,nivel);
+		this.contatos[i-1] = contato;
+		return true;
+	}
 
 	public void persistir() {
 		if(this.contatos!=null) {
@@ -106,5 +118,19 @@ public class Agenda {
 				e.printStackTrace();
 			}
 		}
+	}
+
+	public int getQtd() {
+		return this.contatos.length;
+	}
+
+	public String exibirNomeContato(int i) {
+		if(i<1 || i>100) {
+			throw new RuntimeException("POSIÇÃO INVÁLIDA");
+		}
+		if(this.contatos[i-1]==null) {
+			throw new RuntimeException("POSIÇÃO INVÁLIDA");
+		}
+		return this.contatos[i-1].nomeCompleto();
 	}
 }

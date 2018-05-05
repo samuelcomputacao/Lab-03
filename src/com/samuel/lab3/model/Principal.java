@@ -1,4 +1,7 @@
+package com.samuel.lab3.model;
 import java.util.Scanner;
+
+import com.samuel.lab3.view.Menu;
 
 public class Principal {
 	
@@ -13,42 +16,43 @@ public class Principal {
 
 	public static void main(String[] args) throws Exception{
 		agenda = new Agenda();
+		new Menu(agenda);
 		scan = new Scanner(System.in);
 		boolean continua = true;
-		while (continua) {
-			String acao = exibirMenu();
-
-			switch (acao) {
-			case SAIR:
-				agenda.persistir();
-				continua = false;
-				break;
-			case CADASTRAR:
-				try {
-					if (criaContato()) {
-						System.out.println("CONTATO CADASTRADO");
-					}
-				} catch (RuntimeException e) {
-					System.out.println(e.getMessage());
-				}
-				break;
-			case EXIBIR:
-				int i = pegaPosicao();
-				if (i != -1)
-					try {
-						System.out.println(agenda.exibirContato(i));
-					}catch(RuntimeException e) {
-						System.out.println(e.getMessage());
-					}
-				break;
-			case LISTAR:
-				System.out.println(agenda.listarContato());
-				break;
-			default:
-				System.out.println("OPÇÃO INVÁLIDA!!");
-			}
-		}
-		scan.close();
+//		while (continua) {
+//			String acao = exibirMenu();
+//
+//			switch (acao) {
+//			case SAIR:
+//				agenda.persistir();
+//				continua = false;
+//				break;
+//			case CADASTRAR:
+//				try {
+//					if (criaContato()) {
+//						System.out.println("CONTATO CADASTRADO");
+//					}
+//				} catch (RuntimeException e) {
+//					System.out.println(e.getMessage());
+//				}
+//				break;
+//			case EXIBIR:
+//				int i = pegaPosicao();
+//				if (i != -1)
+//					try {
+//						System.out.println(agenda.exibirContato(i));
+//					}catch(RuntimeException e) {
+//						System.out.println(e.getMessage());
+//					}
+//				break;
+//			case LISTAR:
+//				System.out.println(agenda.listarContato());
+//				break;
+//			default:
+//				System.out.println("OPÇÃO INVÁLIDA!!");
+//			}
+//		}
+//		scan.close();
 	}
 
 	private static int pegaPosicao() {
