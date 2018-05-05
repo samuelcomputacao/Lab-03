@@ -2,79 +2,118 @@ import java.util.Scanner;
 
 public class Principal {
 	
-	private static Agenda agenda = new Agenda();
-	private static Scanner scan = new Scanner(System.in);
 	
-	public static void main(String[] args) {
-		
+	private static Agenda agenda;
+	private static Scanner scan;
+
+	private static final String SAIR = "S";
+	private static final String CADASTRAR = "C";
+	private static final String EXIBIR = "E";
+	private static final String LISTAR = "L";
+
+	public static void main(String[] args) throws Exception{
+		agenda = new Agenda();
+		scan = new Scanner(System.in);
 		boolean continua = true;
-	
-		
-		while(continua) {
+		while (continua) {
 			String acao = exibirMenu();
-			if(acao.equals(Constantes.SAIR.getValor())) {
+
+			switch (acao) {
+			case SAIR:
+				agenda.persistir();
 				continua = false;
-			}else if(acao.equals(Constantes.CADASTRAR.getValor())) {
-				boolean criar =  criaContato();
-				if(criar) {
-					System.out.println(Constantes.CADASTRADO.getValor());
-				}else {
-					System.out.println(Constantes.POSICAO_I.getValor());
-					
-				}
-			}else if(acao.equals(Constantes.LISTAR.getValor())) {
-				agenda.listarContato();
-			}else if(acao.equals(Constantes.EXIBIR.getValor())) {
-				int i = pegaPosicao();
-				if(i != -1) {
-					Contato contato = agenda.getContato(i);
-					if(contato != null) {
-						System.out.println(contato);
-					}else {
-						System.out.println(Constantes.INEXISTENTE);
+				break;
+			case CADASTRAR:
+				try {
+					if (criaContato()) {
+						System.out.println("CONTATO CADASTRADO");
 					}
-				}else {
-					System.out.println(Constantes.POSICAO_I.getValor());
+				} catch (RuntimeException e) {
+					System.out.println(e.getMessage());
 				}
-				
-			}else {
-				System.out.println("\n"+Constantes.INVALIDA.getValor()+"\n\n");
+				break;
+			case EXIBIR:
+				int i = pegaPosicao();
+				if (i != -1)
+					try {
+						System.out.println(agenda.exibirContato(i));
+					}catch(RuntimeException e) {
+						System.out.println(e.getMessage());
+					}
+				break;
+			case LISTAR:
+				System.out.println(agenda.listarContato());
+				break;
+			default:
+				System.out.println("OPÇÃO INVÁLIDA!!");
 			}
 		}
 		scan.close();
-		
 	}
-	
-	
+
 	private static int pegaPosicao() {
-		System.out.print("Contato> ");
-		int i = Integer.parseInt(scan.nextLine());
-		if (i<1 || i >100) {
+		try {
+			System.out.print("Contato> ");
+			int i = Integer.parseInt(scan.nextLine());
+			if (i < 1 || i > 100) {
+				System.out.println("POSIÇÃO INVÁLIDA!!");
+				return -1;
+			}
+			return i;
+		} catch (NumberFormatException e) {
+			System.out.println("DIGITE UM NÚMERO DE 1 A 100");
 			return -1;
 		}
-		return i;
-		
 	}
-
 
 	private static boolean criaContato() {
-		
+		int i = 0;
+		String erro = "";
 		System.out.print("Posição: ");
-		int i = Integer.parseInt(scan.nextLine());
-		
+		try {
+			i = Integer.parseInt(scan.nextLine());
+		} catch (NumberFormatException e) {
+			System.out.println("POSIÇÃO INVÁLIDA");
+			return false;
+		}
+		if (i < 0 || i > 100) {
+			erro += "POSIÇÃO INVÁLIDA!!" + System.lineSeparator();
+		}
+
 		System.out.print("Nome: ");
 		String nome = scan.nextLine();
-		
+
+		if (nome == null || nome.length() == 0) {
+			erro += "CAMPO NOME NECESSÁRIO!!" + System.lineSeparator();
+		}
+
 		System.out.print("Sobrenome: ");
 		String sobrenome = scan.nextLine();
-		
+
+		if (sobrenome == null || sobrenome.length() == 0) {
+			erro += "CAMPO SOBRENOME NECESSÁRIO!!" + System.lineSeparator();
+		}
+
 		System.out.print("Telefone: ");
 		String telefone = scan.nextLine();
-		return agenda.cadastrarContato(nome, sobrenome,telefone,i);
-		
+
+		if (telefone == null || telefone.length() == 0) {
+			erro += "CAMPO TELEFONE NECESSÁRIO!!" + System.lineSeparator();
+		}
+		if (erro.length() > 0) {
+			System.out.println(erro);
+			return false;
+		}
+
+		try {
+			return agenda.cadastrarContato(nome, sobrenome, telefone, i);
+		} catch (RuntimeException e) {
+			System.out.println(e.getMessage());
+			return false;
+		}
 	}
-	
-	private  static String exibirMenu() {
+
+	private static String exibirMenu() {
 		System.out.println("--------AGENDA---------");
 		System.out.println("| (C)adastrar Contato |");
 		System.out.println("| (L)istar Contatos   |");
@@ -85,6 +124,5 @@ public class Principal {
 		String opcao = scan.nextLine();
 		return opcao;
 	}
-
 
 }

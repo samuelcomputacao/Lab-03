@@ -1,27 +1,46 @@
-import org.junit.*;
+import static org.junit.jupiter.api.Assertions.*;
 
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.Test;
+class ContatoTest {
 
-public class ContatoTest {
+	@Test
+	void testContato() {
+		new Contato("Samuel", "Vasconcelos", "993318274");
+	}
+	
+	@Test()
+	void testContatoNomeNulo() {
+		try {
+			new Contato(null, "Vasconcelos", "993318274");
+			fail("erro");
+		}catch (RuntimeException e) {
+			
+		}
+	}
+	
+	@Test()
+	void testContatoSobrenomeNulo() {
+		try {
+			new Contato("Samuel", null, "993318274");
+			fail("erro");
+		}catch (RuntimeException e) {
+			
+		}
+	}
+	
+	@Test()
+	void testContatoTelefoneNulo() {
+		try {
+			new Contato("Samuel", "Vasconcelos", null);
+			fail("erro");
+		}catch (RuntimeException e) {
+		}
+	}
 
-        private Contato contatoBasico;
-
-        @Before
-
-        public void criaContato() {
-
-                    contatoBasico = new Contato("Matheus", "Gaudencio", "2101-0000");
-
-        }
-
-        @Test
-
-        public void testNomeCompleto() {
-
-                        String msg = "Esperando obter o nome completo";
-
-                        assertEquals(msg, "Matheus Gaudencio", "Esperando obter o nome completo");
-
-        }
+	@Test
+	void testToString() {
+		Contato contato = new Contato("Samuel", "Vasconcelos", "993318274");
+		assertEquals("Contato : Samuel Vasconcelos - 993318274", contato.toString());
+	}
 
 }
