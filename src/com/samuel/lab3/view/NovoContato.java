@@ -2,8 +2,11 @@ package com.samuel.lab3.view;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Point;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -42,11 +45,19 @@ public class NovoContato extends JFrame{
 	
 	private final Container painelprincipal = getContentPane();
 	private Agenda agenda;
+	
+	private Point centro;
 
 	public NovoContato(Agenda agenda) {
 		this.agenda = agenda;
 		setDefaultCloseOperation();
 		setSize(300,350);
+		
+		Toolkit toolkit = Toolkit.getDefaultToolkit();
+		Dimension scrnsize = toolkit.getScreenSize();
+		centro = new Point(Integer.valueOf((int) ((scrnsize.getWidth()-getWidth())/3)),Integer.valueOf((int) ((scrnsize.getHeight()-getHeight())/2)));
+		setLocation(centro);
+		setResizable(false);
 		setLayout(new BorderLayout());
 		
 		JPanel titulo = new JPanel();

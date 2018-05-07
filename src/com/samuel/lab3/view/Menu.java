@@ -5,6 +5,8 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Point;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -21,6 +23,7 @@ import javax.swing.JScrollPane;
 
 import com.samuel.lab3.model.Agenda;
 
+
 public class Menu extends JFrame {
 
 	private final Container painelPrincipal = getContentPane();
@@ -31,6 +34,9 @@ public class Menu extends JFrame {
 	private JButton botaoAtualizar;
 
 	private Agenda agenda;
+	
+	
+	private Point centro;
 	/**
 	 * 
 	 */
@@ -41,8 +47,13 @@ public class Menu extends JFrame {
 		setTitle("Agenda");
 		setDefaultCloseOperation();
 		setSize(500, 300);
-		getContentPane().setLayout(new BorderLayout());
-
+		
+		Toolkit toolkit = Toolkit.getDefaultToolkit();
+		Dimension scrnsize = toolkit.getScreenSize();
+		
+		centro = new Point(Integer.valueOf((int) ((scrnsize.getWidth()-getWidth())/2)),Integer.valueOf((int) ((scrnsize.getHeight()-getHeight())/2)));
+		
+		setLocation(centro);
 		JMenuBar bar = new JMenuBar();
 		setJMenuBar(bar);
 
@@ -74,7 +85,7 @@ public class Menu extends JFrame {
 
 		painelBotoes.add(botaoAtualizar);
 		painelBotoes.add(botaoSair);
-		
+
 		painelPrincipal.add(painelBotoes, BorderLayout.SOUTH);
 
 		JPanel painelAgenda = new JPanel();
@@ -88,8 +99,8 @@ public class Menu extends JFrame {
 
 		painelPrincipal.add(jScrollPane);
 
-		setClicks();
-
+		setClicks();		
+		setResizable(false);
 		setVisible(true);
 	}
 
@@ -102,42 +113,57 @@ public class Menu extends JFrame {
 		setClickNovo();
 		setClickExibir();
 		setClickAtualizar();
-	
+
 	}
 
 	private void setClickAtualizar() {
 		botaoAtualizar.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				finalizarFrame();
-				new Menu(agenda);			
+				new Menu(agenda);
 			}
 		});
-		
-		
+
 	}
 
 	private void setClickExibir() {
+		
+//		exibir.addActionListener(new ActionListener() {
+//			
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				String[] opcoes = {"Nome","Contato","Nível de amizade"};
+//				int i  = JOptionPane.showOptionDialog(null, "Exibir por", "Exibir",0, JOptionPane.QUESTION_MESSAGE, null, opcoes, null);
+//				System.out.println(opcoes[i]);
+//				
+//			}
+//		});
+		
+		
 		exibir.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent event) {
-				String posicao = JOptionPane.showInputDialog(null, "Digite a posição do Contato", "Exibir", JOptionPane.QUESTION_MESSAGE);
-				if(posicao.length()>0) {
+				String posicao = JOptionPane.showInputDialog(null, "Digite a posição doContato", "Exibir",
+						JOptionPane.QUESTION_MESSAGE);
+				if (posicao != null && posicao.length() > 0) {
 					try {
 						int i = Integer.parseInt(posicao);
-						JOptionPane.showMessageDialog(null,agenda.exibirContato(i), "Contato", JOptionPane.INFORMATION_MESSAGE);
-					}catch (NumberFormatException e) {
-						JOptionPane.showMessageDialog(null,"Você não digitou um número", "Contato", JOptionPane.ERROR_MESSAGE);
-					}catch (RuntimeException e) {
-						JOptionPane.showMessageDialog(null,e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(null, agenda.exibirContato(i), "Contato",
+								JOptionPane.INFORMATION_MESSAGE);
+					} catch (NumberFormatException e) {
+						JOptionPane.showMessageDialog(null, "Você não digitou um número", "Contato",
+								JOptionPane.ERROR_MESSAGE);
+					} catch (RuntimeException e) {
+						JOptionPane.showMessageDialog(null, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
 					}
 				}
 			}
-		});	
+		});
 	}
-	
+
 	private void setClickNovo() {
 		novo.addActionListener(new ActionListener() {
 			@Override
@@ -145,8 +171,7 @@ public class Menu extends JFrame {
 				new NovoContato(agenda);
 			}
 		});
-		
-		
+
 	}
 
 	private void setClickSair() {
@@ -168,10 +193,10 @@ public class Menu extends JFrame {
 		Font font = new Font(Font.MONOSPACED, Font.PLAIN, 16);
 		for (int i = 1; i < agenda.getQtd() + 1; i++) {
 			try {
-				JLabel jLabel = new JLabel("("+i+") Contato: "+agenda.exibirNomeContato(i));
+				JLabel jLabel = new JLabel("(" + i + ") Contato: " + agenda.exibirNomeContato(i));
 				jLabel.setFont(font);
 				painelAgenda.add(jLabel);
-			}catch (RuntimeException e) {
+			} catch (RuntimeException e) {
 			}
 		}
 	}
