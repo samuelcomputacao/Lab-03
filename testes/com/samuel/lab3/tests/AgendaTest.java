@@ -7,6 +7,7 @@ class AgendaTest {
 	private Agenda agenda;
 	
 	@Test
+	
 	void testListarContato() {
 		agenda = new Agenda();
 		agenda.cadastrarContato("Samuel", "Vasconcelos", "993318274", 1);

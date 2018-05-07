@@ -141,6 +141,7 @@ public class Menu extends JFrame {
 					String nome = JOptionPane.showInputDialog("Digite o nome do contato: ");
 					if(nome != null){
 						List<String> contatos = agenda.buscaPorNome(nome);
+						System.out.println();
 					}
 				}
 				
