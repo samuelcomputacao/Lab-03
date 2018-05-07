@@ -1,7 +1,4 @@
 package com.samuel.lab3.tests;
-import static org.junit.jupiter.api.Assertions.*;
-
-import org.junit.jupiter.api.Test;
 
 import com.samuel.lab3.model.Agenda;
 

@@ -1,7 +1,6 @@
 package com.samuel.lab3.tests;
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.jupiter.api.Test;
 
 import com.samuel.lab3.model.Contato;
 class ContatoTest {
@@ -11,7 +10,7 @@ class ContatoTest {
 		new Contato("Samuel", "Vasconcelos", "993318274");
 	}
 	
-	@Test()
+	@Test
 	void testContatoNomeNulo() {
 		try {
 			new Contato(null, "Vasconcelos", "993318274");
@@ -21,7 +20,7 @@ class ContatoTest {
 		}
 	}
 	
-	@Test()
+	@Test
 	void testContatoSobrenomeNulo() {
 		try {
 			new Contato("Samuel", null, "993318274");
@@ -31,7 +30,7 @@ class ContatoTest {
 		}
 	}
 	
-	@Test()
+	@Test
 	void testContatoTelefoneNulo() {
 		try {
 			new Contato("Samuel", "Vasconcelos", null);

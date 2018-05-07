@@ -75,6 +75,9 @@ public class Contato {
 	public String nomeCompleto() {
 		return this.nome+" "+this.sobrenome;
 	}
+	public String getNome() {
+		return this.nome;
+	}
 	
 	
 	

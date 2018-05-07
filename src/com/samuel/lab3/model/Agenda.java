@@ -6,7 +6,9 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import com.google.gson.Gson;
 
@@ -132,5 +134,15 @@ public class Agenda {
 			throw new RuntimeException("POSIÇÃO INVÁLIDA");
 		}
 		return this.contatos[i-1].nomeCompleto();
+	}
+
+	public List<String> buscaPorNome(String nome) {
+		List<String> retorno = new ArrayList<String>();
+		for(Contato contato : this.contatos){
+			if(contato.getNome().equals(nome)){
+				retorno.add(contato.toString());
+			}
+		}
+		return retorno;
 	}
 }

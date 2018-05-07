@@ -22,6 +22,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import com.samuel.lab3.model.Agenda;
+import java.util.List;
 
 
 public class Menu extends JFrame {
@@ -130,38 +131,43 @@ public class Menu extends JFrame {
 
 	private void setClickExibir() {
 		
-//		exibir.addActionListener(new ActionListener() {
-//			
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				String[] opcoes = {"Nome","Contato","Nível de amizade"};
-//				int i  = JOptionPane.showOptionDialog(null, "Exibir por", "Exibir",0, JOptionPane.QUESTION_MESSAGE, null, opcoes, null);
-//				System.out.println(opcoes[i]);
-//				
-//			}
-//		});
-		
-		
 		exibir.addActionListener(new ActionListener() {
-
+			
 			@Override
-			public void actionPerformed(ActionEvent event) {
-				String posicao = JOptionPane.showInputDialog(null, "Digite a posição doContato", "Exibir",
-						JOptionPane.QUESTION_MESSAGE);
-				if (posicao != null && posicao.length() > 0) {
-					try {
-						int i = Integer.parseInt(posicao);
-						JOptionPane.showMessageDialog(null, agenda.exibirContato(i), "Contato",
-								JOptionPane.INFORMATION_MESSAGE);
-					} catch (NumberFormatException e) {
-						JOptionPane.showMessageDialog(null, "Você não digitou um número", "Contato",
-								JOptionPane.ERROR_MESSAGE);
-					} catch (RuntimeException e) {
-						JOptionPane.showMessageDialog(null, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+			public void actionPerformed(ActionEvent e) {
+				String[] opcoes = {"Nome","Contato","Nível de amizade"};
+				int i  = JOptionPane.showOptionDialog(null, "Exibir por", "Exibir",0, JOptionPane.QUESTION_MESSAGE, null, opcoes, null);
+				if(i==0){
+					String nome = JOptionPane.showInputDialog("Digite o nome do contato: ");
+					if(nome != null){
+						List<String> contatos = agenda.buscaPorNome(nome);
 					}
 				}
+				
 			}
 		});
+		
+		
+//		exibir.addActionListener(new ActionListener() {
+//
+//			@Override
+//			public void actionPerformed(ActionEvent event) {
+//				String posicao = JOptionPane.showInputDialog(null, "Digite a posição doContato", "Exibir",
+//						JOptionPane.QUESTION_MESSAGE);
+//				if (posicao != null && posicao.length() > 0) {
+//					try {
+//						int i = Integer.parseInt(posicao);
+//						JOptionPane.showMessageDialog(null, agenda.exibirContato(i), "Contato",
+//								JOptionPane.INFORMATION_MESSAGE);
+//					} catch (NumberFormatException e) {
+//						JOptionPane.showMessageDialog(null, "Você não digitou um número", "Contato",
+//								JOptionPane.ERROR_MESSAGE);
+//					} catch (RuntimeException e) {
+//						JOptionPane.showMessageDialog(null, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+//					}
+//				}
+//			}
+//		});
 	}
 
 	private void setClickNovo() {
