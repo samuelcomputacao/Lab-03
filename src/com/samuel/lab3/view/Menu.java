@@ -141,8 +141,16 @@ public class Menu extends JFrame {
 					String nome = JOptionPane.showInputDialog("Digite o nome do contato: ");
 					if(nome != null){
 						List<String> contatos = agenda.buscaPorNome(nome);
+						new Scroll(contatos);
 						System.out.println();
 					}
+				}else if(i==2){
+		
+					String[] opcoesNiveis = {"Distante","Colega","Amigo","Amigão","Irmão"};
+					int j = JOptionPane.showOptionDialog(null, "Escolha o nível de amizade", "Níveis de amizade", 0, JOptionPane.QUESTION_MESSAGE, null, opcoesNiveis, 0);
+					
+				}else if(i==1) {
+					new NovoContato(agenda);
 				}
 				
 			}

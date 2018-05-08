@@ -97,6 +97,7 @@ public class Agenda {
 		this.contatos[i-1] = contato;
 		return true;
 	}
+	
 	public boolean cadastrarContato(String nome, String sobrenome, Telefone[] telefones,int nivel,int i) {
 		if(i<1 || i>100) {
 			 throw new RuntimeException("POSIÇÃO INVÁLIDA");
@@ -139,7 +140,7 @@ public class Agenda {
 	public List<String> buscaPorNome(String nome) {
 		List<String> retorno = new ArrayList<String>();
 		for(Contato contato : this.contatos){
-			if(contato.getNome().equals(nome)){
+			if(contato != null && contato.getNome().equals(nome)){
 				retorno.add(contato.toString());
 			}
 		}

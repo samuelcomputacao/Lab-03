@@ -13,7 +13,7 @@ public class Contato {
 		if(telefone == null || telefone.length()==0) throw new RuntimeException("TELEFONE OBRIGATÓRIO!");
 		this.nome = nome;
 		this.sobrenome = sobrenome;
-		this.telefone = telefone;
+		this.telefone = telefone; 
 	}
 	public Contato(String nome, String sobrenome, Telefone[] telefones,int nivel) {
 		if(nome == null || nome.length()==0) throw new RuntimeException("NOME OBRIGATÓRIO!");
@@ -30,9 +30,9 @@ public class Contato {
 		if(this.telefones!=null)
 		for(int i = 0;i<this.telefones.length;i++) {
 			if(this.telefones[i]!=null)
-			telefones += this.telefones[i].toString()+System.lineSeparator();
+			telefones += " "+this.telefones[i].toString();
 		}
-		return "Contato : "+ this.nome + " "+ this.sobrenome +System.lineSeparator()+telefones+" Nível: "+this.nivelString(this.nivel);
+		return "Contato : "+ this.nome + " "+ this.sobrenome +telefones+" Nível: "+this.nivelString(this.nivel);
 	}
 	private String nivelString(int nivel) {
 		switch (nivel) {

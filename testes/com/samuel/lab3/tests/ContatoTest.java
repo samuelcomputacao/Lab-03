@@ -1,19 +1,25 @@
 package com.samuel.lab3.tests;
-import static org.junit.jupiter.api.Assertions.*;
 
+import static org.junit.Assert.*;
+
+import org.junit.Test;
 
 import com.samuel.lab3.model.Contato;
-class ContatoTest {
+import com.samuel.lab3.model.Telefone;
+
+public class ContatoTest {
+	
+	private Contato c;
 
 	@Test
-	void testContato() {
-		new Contato("Samuel", "Vasconcelos", "993318274");
+	public void testContato() {
+		c = new Contato("Samuel", "Vasconcelos", "993318274");
 	}
 	
 	@Test
-	void testContatoNomeNulo() {
+	public void testContatoNomeNulo() {
 		try {
-			new Contato(null, "Vasconcelos", "993318274");
+			c = new Contato(null, "Vasconcelos", "993318274");
 			fail("erro");
 		}catch (RuntimeException e) {
 			
@@ -21,9 +27,9 @@ class ContatoTest {
 	}
 	
 	@Test
-	void testContatoSobrenomeNulo() {
+	public void testContatoSobrenomeNulo() {
 		try {
-			new Contato("Samuel", null, "993318274");
+			c = new Contato("Samuel", null, "993318274");
 			fail("erro");
 		}catch (RuntimeException e) {
 			
@@ -31,18 +37,19 @@ class ContatoTest {
 	}
 	
 	@Test
-	void testContatoTelefoneNulo() {
+	public void testContatoTelefoneNulo() {
 		try {
-			new Contato("Samuel", "Vasconcelos", null);
+			c = new Contato("Samuel", "Vasconcelos", null);
 			fail("erro");
 		}catch (RuntimeException e) {
 		}
 	}
 
 	@Test
-	void testToString() {
-		Contato contato = new Contato("Samuel", "Vasconcelos", "993318274");
-		assertEquals("Contato : Samuel Vasconcelos - 993318274", contato.toString());
+	public void testToString() {
+		Telefone[] telefones = {null,new Telefone("83", "993318274", "CASA"),null};
+		c = new Contato("Samuel", "Vasconcelos", telefones,1);
+		assertEquals("Contato : Samuel Vasconcelos CASA: (83) 993318274 Nível: Colega", c.toString());
 	}
 
 }

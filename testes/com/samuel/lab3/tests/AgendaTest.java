@@ -1,5 +1,9 @@
 package com.samuel.lab3.tests;
 
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
 import com.samuel.lab3.model.Agenda;
 
 class AgendaTest {
@@ -55,7 +59,7 @@ class AgendaTest {
 		}
 	}
 
-	@Test
+	@Test()
 	void testCadastrarContato() {
 		agenda = new Agenda();
 		agenda.cadastrarContato("Samuel", "Vasconcelos", "993318274", 2);
@@ -67,7 +71,6 @@ class AgendaTest {
 			agenda.cadastrarContato("Samuel", "Vasconcelos", "993318274", 0);
 			fail("erro");
 		}catch(RuntimeException e) {
-			
 		}
 	}
 	
