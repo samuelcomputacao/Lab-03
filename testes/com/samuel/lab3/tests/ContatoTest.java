@@ -42,7 +42,7 @@ public class ContatoTest {
 	}
 	
 	/**
-	 * Testa o contrutor quando recebe o sobrenome nulo
+	 * Testa o contrutor quando recebe um sobrenome nulo
 	 */
 	@Test(expected = RuntimeException.class)
 	public void testConstructSobrenomeNull() {
