@@ -1,4 +1,5 @@
 package com.samuel.lab3.model;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -13,35 +14,45 @@ import java.util.List;
 import com.google.gson.Gson;
 
 public class Agenda {
-	
+
 	private Contato[] contatos;
-	
+	private int cadastrados;
+
 	public Agenda() {
-	
-		Gson gson =new Gson() ;
+		Gson gson = new Gson();
 		try {
-			File file = new File(new File("").getAbsolutePath()+"/file/contatos.json");
-			if(file.exists()) {
+			File file = new File(new File("").getAbsolutePath() + "/file/contatos.json");
+			if (file.exists()) {
 				FileReader fileReader = new FileReader(file);
 				BufferedReader bufferedReader = new BufferedReader(fileReader);
-				this.contatos = gson.fromJson(bufferedReader,Contato[].class);
-				if(this.contatos==null) {
+				this.contatos = gson.fromJson(bufferedReader, Contato[].class);
+				if (this.contatos == null) {
 					this.contatos = new Contato[100];
 				}
-			}else {
+
+			} else {
 				contatos = new Contato[100];
 			}
+			File file1 = new File(new File("").getAbsolutePath() + "/file/cadastrados.json");
+			if (file1.exists()) {
+				FileReader fileReader1 = new FileReader(file1);
+				BufferedReader bufferedReader1 = new BufferedReader(fileReader1);
+				this.cadastrados = gson.fromJson(bufferedReader1, Integer.class);
+			}else {
+				this.cadastrados = 0;
+			}
+
 		} catch (FileNotFoundException e) {
-			
+
 		}
-		
+
 	}
 
 	public String listarContato() {
 		String retorno = "";
-		if(this.contatos!=null) {
-			for(int i = 0; i< 100; i++) {
-				if(this.contatos[i] != null) {
+		if (this.contatos != null) {
+			for (int i = 0; i < 100; i++) {
+				if (this.contatos[i] != null) {
 					retorno += this.contatos[i] + System.lineSeparator();
 				}
 			}
@@ -50,22 +61,15 @@ public class Agenda {
 	}
 
 	public String exibirContato(int i) {
-		if(i<1 || i>100) {
+		if (i < 1 || i > 100) {
 			throw new RuntimeException("POSIÇÃO INVÁLIDA");
 		}
-		if(this.contatos[i-1]==null) {
+		if (this.contatos[i - 1] == null) {
 			throw new RuntimeException("POSIÇÃO INVÁLIDA");
 		}
-		return this.contatos[i-1].toString();
+		return this.contatos[i - 1].toString();
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + Arrays.hashCode(contatos);
-		return result;
-	}
 
 	@Override
 	public boolean equals(Object obj) {
@@ -83,64 +87,70 @@ public class Agenda {
 
 	/**
 	 * Cadatra um novo contato no sistema
-	 * @param nome : Representa o nome do contato a ser adicionado
-	 * @param sobrenome : Representa o sobrenome do contato a ser adicionado
-	 * @param telefone : Representa o telefone do acontato a ser adicionado
-	 * @param i : Representa a posição que será ocupada pelo contato
+	 * 
+	 * @param nome
+	 *            : Representa o nome do contato a ser adicionado
+	 * @param sobrenome
+	 *            : Representa o sobrenome do contato a ser adicionado
+	 * @param telefone
+	 *            : Representa o telefone do acontato a ser adicionado
+	 * @param i
+	 *            : Representa a posição que será ocupada pelo contato
 	 * @return : Retorna um boleano representando se o contato foi adicionado
 	 */
-	public boolean cadastrarContato(String nome, String sobrenome, String telefone, int i) {
-		if(i<1 || i>100) {
-			 throw new RuntimeException("POSIÇÃO INVÁLIDA");
+
+	public boolean cadastrarContato(String nome, String sobrenome, Telefone[] telefones, int nivel, int i) {
+		if (i < 1 || i > 100) {
+			throw new RuntimeException("POSIÇÃO INVÁLIDA");
 		}
-		Contato contato = new Contato(nome,sobrenome,telefone);
-		this.contatos[i-1] = contato;
-		return true;
-	}
-	
-	public boolean cadastrarContato(String nome, String sobrenome, Telefone[] telefones,int nivel,int i) {
-		if(i<1 || i>100) {
-			 throw new RuntimeException("POSIÇÃO INVÁLIDA");
-		}
-		Contato contato = new Contato(nome,sobrenome,telefones,nivel);
-		this.contatos[i-1] = contato;
+		Contato contato = new Contato(nome, sobrenome, telefones, nivel);
+		this.contatos[i - 1] = contato;
+		this.cadastrados++;
 		return true;
 	}
 
 	public void persistir() {
-		if(this.contatos!=null) {
+		if (this.contatos != null) {
 			Gson gson = new Gson();
 			try {
-				File file = new File(new File("").getAbsolutePath()+"/file/contatos.json");
+				File file = new File(new File("").getAbsolutePath() + "/file/contatos.json");
 				FileWriter fileWrite = new FileWriter(file);
 				BufferedWriter bufferedWriter = new BufferedWriter(fileWrite);
+
 				bufferedWriter.write(gson.toJson(this.contatos));
 				bufferedWriter.close();
 				fileWrite.close();
+
+				File file1 = new File(new File("").getAbsolutePath() + "/file/cadastrados.json");
+				FileWriter fileWrite1 = new FileWriter(file1);
+				BufferedWriter bufferedWriter1 = new BufferedWriter(fileWrite1);
+
+				bufferedWriter1.write(gson.toJson(this.cadastrados));
+				bufferedWriter1.close();
+				fileWrite1.close();
+
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
 	}
 
-	public int getQtd() {
-		return this.contatos.length;
-	}
+	
 
 	public String exibirNomeContato(int i) {
-		if(i<1 || i>100) {
+		if (i < 1 || i > 100) {
 			throw new RuntimeException("POSIÇÃO INVÁLIDA");
 		}
-		if(this.contatos[i-1]==null) {
+		if (this.contatos[i - 1] == null) {
 			throw new RuntimeException("POSIÇÃO INVÁLIDA");
 		}
-		return this.contatos[i-1].nomeCompleto();
+		return this.contatos[i - 1].nomeCompleto();
 	}
 
 	public List<String> buscaPorNome(String nome) {
 		List<String> retorno = new ArrayList<String>();
-		for(Contato contato : this.contatos){
-			if(contato != null && contato.getNome().equals(nome)){
+		for (Contato contato : this.contatos) {
+			if (contato != null && contato.getNome().equals(nome)) {
 				retorno.add(contato.toString());
 			}
 		}
@@ -149,13 +159,39 @@ public class Agenda {
 
 	public List<String> buscaPorNivelAmizade(int i) {
 		List<String> retorno = new ArrayList<String>();
-		for(Contato c:this.contatos) {
-			if(c != null) {
-				if (c.getNivel()== i) {
+		for (Contato c : this.contatos) {
+			if (c != null) {
+				if (c.getNivel() == i) {
 					retorno.add(c.toString());
 				}
 			}
 		}
 		return retorno;
+	}
+
+	public float mediaAmizade() {
+		int cont = 0;
+		if (this.cadastrados != 0) {
+
+			cont += this.quantidadePorNivel(1);
+			cont += this.quantidadePorNivel(2) * 2;
+			cont += this.quantidadePorNivel(3) * 3;
+			cont += this.quantidadePorNivel(4) * 4;
+			cont += this.quantidadePorNivel(5) * 5;
+		}
+		return cont;
+	}
+
+	public int quantidadePorNivel(int nivel) {
+		int cont = 0;
+		for (Contato contato : this.contatos) {
+			if (contato != null && contato.getNivel() == nivel)
+				cont++;
+		}
+		return cont;
+	}
+
+	public int getTamanho() {
+		return this.contatos.length;
 	}
 }

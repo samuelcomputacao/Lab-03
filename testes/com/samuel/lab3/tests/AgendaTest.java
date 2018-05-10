@@ -2,92 +2,84 @@ package com.samuel.lab3.tests;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+
+import org.junit.Before;
 import org.junit.Test;
 
 import com.samuel.lab3.model.Agenda;
+import com.samuel.lab3.model.Telefone;
+import java.util.List;
 
-class AgendaTest {
+
+
+public class AgendaTest {
 	
 	private Agenda agenda;
-	
-	@Test
-	
-	void testListarContato() {
+
+	@Before
+	public void testAgenda() {
 		agenda = new Agenda();
-		agenda.cadastrarContato("Samuel", "Vasconcelos", "993318274", 1);
-		agenda.cadastrarContato("Maria", "Vasconcelos", "993318275", 2);
-		assertEquals("Contato : Samuel Vasconcelos - 993318274"+System.lineSeparator()+"Contato : Maria Vasconcelos - 993318275"+System.lineSeparator(), agenda.listarContato());
+		Telefone t = new Telefone("83", "93318274", "CASA");
+		Telefone[] telefones = {null,t,null};
+		agenda.cadastrarContato("Samuel", "Vasconcelos", telefones,0, 1);
 	}
 	
-	@Test
-	void testExibirContato() {
-		agenda = new Agenda();
-		agenda.cadastrarContato("Samuel", "Vasconcelos", "993318274", 1);
-		assertEquals("Contato : Samuel Vasconcelos - 993318274", agenda.exibirContato(1));	
+	@Test(expected = RuntimeException.class)
+	public void testCadastrarContatoAcima() {
+		Telefone t = new Telefone("83", "93318274", "CASA");
+		Telefone[] telefones = {null,t,null};
+		agenda.cadastrarContato("Samuel", "sobrenome", telefones, 0, 102);
 	}
 	
-	@Test
-	void testExibirContatoNull() {
-		try {
-			agenda.exibirContato(23);
-			fail("Erro");
-		}catch(RuntimeException e) {
-			
-		}
-			
+	@Test(expected = RuntimeException.class)
+	public void testCadastrarContatoAbaixo() {
+		Telefone t = new Telefone("83", "93318274", "CASA");
+		Telefone[] telefones = {null,t,null};
+		agenda.cadastrarContato("Samuel", "sobrenome", telefones, 0, 0);
 	}
 
 	@Test
-	void testExibirContatoMenor() {
-		agenda = new Agenda();
-		try {
-			agenda.exibirContato(0);
-			fail("erro");
-		}catch (RuntimeException e) {
-			// TODO: handle exception
-		}
-	}
-	
-	@Test
-	void testExibirContatoMaior() {
-		agenda = new Agenda();
-		try {
-			agenda.exibirContato(101);
-			fail("erro");
-		}catch (RuntimeException e) {
-			// TODO: handle exception
-		}
-	}
-
-	@Test()
-	void testCadastrarContato() {
-		agenda = new Agenda();
-		agenda.cadastrarContato("Samuel", "Vasconcelos", "993318274", 2);
-	}
-	
-	@Test
-	void testCadastrarContatoMenor() {
-		try {
-			agenda.cadastrarContato("Samuel", "Vasconcelos", "993318274", 0);
-			fail("erro");
-		}catch(RuntimeException e) {
-		}
-	}
-	
-	@Test
-	void testCadastrarContatoMaior() {
-		try {
-			agenda.cadastrarContato("Samuel", "Vasconcelos", "993318274", 101);
-			fail("erro");
-		}catch(RuntimeException e) {
-			
-		}
+	public void testListarContato() {
+		assertEquals("Contato : Samuel Vasconcelos CASA: (83) 93318274 Nível: Distante"+System.lineSeparator(), agenda.listarContato());
 	}
 
 	@Test
-	void testPersistir() {
-		agenda = new Agenda();
-		agenda.persistir();
+	public void testExibirContato() {
+		assertEquals("Contato : Samuel Vasconcelos CASA: (83) 93318274 Nível: Distante",agenda.exibirContato(1));
+	}
+
+	@Test
+	public void testGetTamanho() {
+		assertEquals(100, agenda.getTamanho());
+	}
+
+	@Test
+	public void testExibirNomeContato() {
+		assertEquals("Samuel Vasconcelos", agenda.exibirNomeContato(1));
+	}
+
+	@Test
+	public void testBuscaPorNome() {
+		List<String> expected = new ArrayList<String>();
+		expected.add(agenda.exibirContato(1));
+		
+		assertEquals(expected, agenda.buscaPorNome("Samuel"));
+	}
+
+	@Test
+	public void testBuscaPorNivelAmizade() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testMediaAmizade() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testQuantidadePorNivel() {
+		assertEquals(1, agenda.quantidadePorNivel(1));
 	}
 
 }

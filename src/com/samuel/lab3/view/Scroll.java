@@ -23,7 +23,6 @@ public class Scroll extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private final Container painelPrincipal = getContentPane();
-	private JScrollPane scroll;
 	private JButton botaoSair;
 	
 	public Scroll(List<String> lista) {
