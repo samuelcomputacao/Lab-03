@@ -146,4 +146,16 @@ public class Agenda {
 		}
 		return retorno;
 	}
+
+	public List<String> buscaPorNivelAmizade(int i) {
+		List<String> retorno = new ArrayList<String>();
+		for(Contato c:this.contatos) {
+			if(c != null) {
+				if (c.getNivel()== i) {
+					retorno.add(c.toString());
+				}
+			}
+		}
+		return retorno;
+	}
 }

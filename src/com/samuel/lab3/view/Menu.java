@@ -14,16 +14,18 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import com.samuel.lab3.model.Agenda;
 import java.util.List;
-
 
 public class Menu extends JFrame {
 
@@ -35,8 +37,7 @@ public class Menu extends JFrame {
 	private JButton botaoAtualizar;
 
 	private Agenda agenda;
-	
-	
+
 	private Point centro;
 	/**
 	 * 
@@ -48,12 +49,13 @@ public class Menu extends JFrame {
 		setTitle("Agenda");
 		setDefaultCloseOperation();
 		setSize(500, 300);
-		
+
 		Toolkit toolkit = Toolkit.getDefaultToolkit();
 		Dimension scrnsize = toolkit.getScreenSize();
-		
-		centro = new Point(Integer.valueOf((int) ((scrnsize.getWidth()-getWidth())/2)),Integer.valueOf((int) ((scrnsize.getHeight()-getHeight())/2)));
-		
+
+		centro = new Point(Integer.valueOf((int) ((scrnsize.getWidth() - getWidth()) / 2)),
+				Integer.valueOf((int) ((scrnsize.getHeight() - getHeight()) / 2)));
+
 		setLocation(centro);
 		JMenuBar bar = new JMenuBar();
 		setJMenuBar(bar);
@@ -100,7 +102,7 @@ public class Menu extends JFrame {
 
 		painelPrincipal.add(jScrollPane);
 
-		setClicks();		
+		setClicks();
 		setResizable(false);
 		setVisible(true);
 	}
@@ -130,53 +132,96 @@ public class Menu extends JFrame {
 	}
 
 	private void setClickExibir() {
-		
+
 		exibir.addActionListener(new ActionListener() {
-			
+
 			@Override
-			public void actionPerformed(ActionEvent e) {
-				String[] opcoes = {"Nome","Contato","Nível de amizade"};
-				int i  = JOptionPane.showOptionDialog(null, "Exibir por", "Exibir",0, JOptionPane.QUESTION_MESSAGE, null, opcoes, null);
-				if(i==0){
+			public void actionPerformed(ActionEvent event) {
+				String[] opcoes = { "Nome", "Contato", "Nível de amizade" };
+				int i = JOptionPane.showOptionDialog(null, "Exibir por", "Exibir", 0, JOptionPane.QUESTION_MESSAGE,
+						null, opcoes, null);
+				if (i == 0) {
 					String nome = JOptionPane.showInputDialog("Digite o nome do contato: ");
-					if(nome != null){
+					if (nome != null) {
 						List<String> contatos = agenda.buscaPorNome(nome);
 						new Scroll(contatos);
-						System.out.println();
 					}
-				}else if(i==2){
-		
-					String[] opcoesNiveis = {"Distante","Colega","Amigo","Amigão","Irmão"};
-					int j = JOptionPane.showOptionDialog(null, "Escolha o nível de amizade", "Níveis de amizade", 0, JOptionPane.QUESTION_MESSAGE, null, opcoesNiveis, 0);
+				} else if (i == 2) {
+
+					String[] opcoesNiveis = { "Distante", "Colega", "Amigo", "Amigão", "Irmão" };
+					String initialSelection = "Distante";
+					Object nivel = JOptionPane.showInputDialog(null, "Escolha o nível de amizade", "Níveis de amizade",
+							JOptionPane.QUESTION_MESSAGE, null,opcoesNiveis, initialSelection);
 					
-				}else if(i==1) {
-					new NovoContato(agenda);
+					if(nivel!=null) {
+						int j = 0;
+						List<String> contatos;
+						switch (nivel.toString()) {
+						case "Colega":
+							j = 1;
+							break;
+						case "Amigo":
+							j = 2;
+							break;
+						case "Amigão":
+							j = 3;
+							break;
+						case "Irmão":
+							j = 4;
+							break;
+						default:
+							break;
+						}
+						contatos = agenda.buscaPorNivelAmizade(j);
+						if(contatos.isEmpty()) {
+							JOptionPane.showConfirmDialog(null, "Nenhum contato com esse nível", "alerta", JOptionPane.INFORMATION_MESSAGE);
+						}else {
+							new Scroll(contatos);
+						}
+					}
+
+				} else if (i == 1) {
+					int j = 0;
+					boolean sair = false;
+					do {
+						try {
+							j = Integer.parseInt(JOptionPane.showInputDialog("Digite a posição do contato: "));
+							String contato = agenda.exibirContato(j);
+							JOptionPane.showMessageDialog(null, contato, "Contato", JOptionPane.INFORMATION_MESSAGE);
+							sair = true;
+						} catch (NumberFormatException e) {
+							JOptionPane.showMessageDialog(null, "Digite um número entre 1 - 100", "Erro",
+									JOptionPane.ERROR_MESSAGE);
+						}
+					} while ((j != JOptionPane.CLOSED_OPTION && j != JOptionPane.CANCEL_OPTION) && !sair);
+
 				}
-				
+
 			}
 		});
-		
-		
-//		exibir.addActionListener(new ActionListener() {
-//
-//			@Override
-//			public void actionPerformed(ActionEvent event) {
-//				String posicao = JOptionPane.showInputDialog(null, "Digite a posição doContato", "Exibir",
-//						JOptionPane.QUESTION_MESSAGE);
-//				if (posicao != null && posicao.length() > 0) {
-//					try {
-//						int i = Integer.parseInt(posicao);
-//						JOptionPane.showMessageDialog(null, agenda.exibirContato(i), "Contato",
-//								JOptionPane.INFORMATION_MESSAGE);
-//					} catch (NumberFormatException e) {
-//						JOptionPane.showMessageDialog(null, "Você não digitou um número", "Contato",
-//								JOptionPane.ERROR_MESSAGE);
-//					} catch (RuntimeException e) {
-//						JOptionPane.showMessageDialog(null, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-//					}
-//				}
-//			}
-//		});
+
+		// exibir.addActionListener(new ActionListener() {
+		//
+		// @Override
+		// public void actionPerformed(ActionEvent event) {
+		// String posicao = JOptionPane.showInputDialog(null, "Digite a posição
+		// doContato", "Exibir",
+		// JOptionPane.QUESTION_MESSAGE);
+		// if (posicao != null && posicao.length() > 0) {
+		// try {
+		// int i = Integer.parseInt(posicao);
+		// JOptionPane.showMessageDialog(null, agenda.exibirContato(i), "Contato",
+		// JOptionPane.INFORMATION_MESSAGE);
+		// } catch (NumberFormatException e) {
+		// JOptionPane.showMessageDialog(null, "Você não digitou um número", "Contato",
+		// JOptionPane.ERROR_MESSAGE);
+		// } catch (RuntimeException e) {
+		// JOptionPane.showMessageDialog(null, e.getMessage(), "Erro",
+		// JOptionPane.ERROR_MESSAGE);
+		// }
+		// }
+		// }
+		// });
 	}
 
 	private void setClickNovo() {

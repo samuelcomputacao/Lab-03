@@ -78,6 +78,9 @@ public class Contato {
 	public String getNome() {
 		return this.nome;
 	}
+	public int getNivel() {
+		return this.nivel;
+	}
 	
 	
 	
