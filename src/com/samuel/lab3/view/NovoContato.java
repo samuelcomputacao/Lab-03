@@ -22,6 +22,11 @@ import com.samuel.lab3.model.Agenda;
 import com.samuel.lab3.model.Telefone;
 
 
+/**
+ * Interface Gráfica responsável por capiturar os dado s de um novo usuario
+ * @author Samuel Pereira de Vasconcelos
+ *
+ */
 public class NovoContato extends JFrame{
 
 	/**
@@ -260,7 +265,7 @@ public class NovoContato extends JFrame{
 					return;
 				}
 				
-				int nivel = (int) box.getSelectedIndex();
+				int nivel = (int) box.getSelectedIndex()+1;
 	
 				try {
 				 agenda.cadastrarContato(nome, sobrenome, telefones, nivel,i);

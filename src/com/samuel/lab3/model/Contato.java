@@ -1,20 +1,38 @@
 package com.samuel.lab3.model;
+
+/**
+ * Classe que representa um contato na agenda
+ *  
+ * @author Samuel Pereira de Vasconcelos
+ *
+ */
 public class Contato {
 	
+	/**
+	 * Nome do contato
+	 */
 	private String nome;
+	/**
+	 * Sobrenome do contato
+	 */
 	private String sobrenome;
-	private String telefone;
+	/**
+	 * Telefones do contato
+	 */
 	private Telefone[] telefones;
+	
+	/**
+	 * Nível de amizade do contato
+	 */
 	private int nivel;
 	
-	public Contato(String nome, String sobrenome, String telefone) {
-		if(nome == null || nome.length()==0) throw new RuntimeException("NOME OBRIGATÓRIO!");
-		if(sobrenome == null || sobrenome.length()==0) throw new RuntimeException("SOBRENOME OBRIGATÓRIO!");
-		if(telefone == null || telefone.length()==0) throw new RuntimeException("TELEFONE OBRIGATÓRIO!");
-		this.nome = nome;
-		this.sobrenome = sobrenome;
-		this.telefone = telefone; 
-	}
+	/**
+	 * Construtor responsável por inicializar o contato na memória
+	 * @param nome : Representa o nome do contato
+	 * @param sobrenome : Representa o sobrenome do contato 
+	 * @param telefones : Representa os telefones do contato
+	 * @param nivel : Represenat o nível de amizade do contato
+	 */
 	public Contato(String nome, String sobrenome, Telefone[] telefones,int nivel) {
 		if(nome == null || nome.length()==0) throw new RuntimeException("NOME OBRIGATÓRIO!");
 		if(sobrenome == null || sobrenome.length()==0) throw new RuntimeException("SOBRENOME OBRIGATÓRIO!");
@@ -24,6 +42,11 @@ public class Contato {
 		this.telefones = telefones;
 		this.nivel = nivel;
 	}
+	
+	/**
+	 * Método responsável por derar uma string que representa um contato 
+	 * @return Uma String representando o contato
+	 */
 	@Override
 	public String toString() {
 		String telefones = "";
@@ -34,31 +57,33 @@ public class Contato {
 		}
 		return "Contato : "+ this.nome + " "+ this.sobrenome +telefones+" Nível: "+this.nivelString(this.nivel);
 	}
+	
+	/**
+	 * Método responsável por vefificar a qual nível o contato pertence
+	 * @param nivel : um inteiro representando o nível
+	 * @return Uma representação em String do nível do contato
+	 */
 	private String nivelString(int nivel) {
 		switch (nivel) {
-		case 0:
-			return "Distante";
 		case 1:
-			return "Colega";
+			return "Distante";
 		case 2:
-			return "Amigo";
+			return "Colega";
 		case 3:
-			return "Amigão";
+			return "Amigo";
 		case 4:
+			return "Amigão";
+		case 5:
 			return "Irmão";
 		}
 		return null;
 		
 	}
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
-		result = prime * result + ((sobrenome == null) ? 0 : sobrenome.hashCode());
-		result = prime * result + ((telefone == null) ? 0 : telefone.hashCode());
-		return result;
-	}
+	
+	/**
+	 * Método reponsavel por comparar dois contatos pelo nome
+	 * @return retorna p resultado da comparação entre o nomes dos contatos
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -72,16 +97,26 @@ public class Contato {
 			return false;
 		return true;
 	}
+	
+	/**
+	 * Método responsável por criar o nome completo do contato
+	 * @return Uma String representando O nome completo do contato
+	 */ 
 	public String nomeCompleto() {
 		return this.nome+" "+this.sobrenome;
 	}
+	
+	/**
+	 * @return Uma String representando o nome do contato
+	 */
 	public String getNome() {
 		return this.nome;
 	}
+	
+	/**
+	 * @return Um inteiro representando o nível de amizade do contato
+	 */
 	public int getNivel() {
 		return this.nivel;
 	}
-	
-	
-	
 }

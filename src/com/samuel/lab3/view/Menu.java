@@ -24,6 +24,12 @@ import javax.swing.JScrollPane;
 import com.samuel.lab3.model.Agenda;
 import java.util.List;
 
+/**
+ * Interface Gráfica utilizada para consumir dados e comando de ações do usuário
+ * 
+ * @author Samuel Pereira de Vasconcelos
+ *
+ */
 public class Menu extends JFrame {
 
 	private final Container painelPrincipal = getContentPane();

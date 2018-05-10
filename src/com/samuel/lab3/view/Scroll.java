@@ -19,6 +19,11 @@ import javax.swing.JScrollPane;
 
 
 
+/**
+ * Interface gráfica responsável por imprimir uma lista de contatos para o usuário
+ * @author Samuel Pereira de Vasconcelos
+ *
+ */
 public class Scroll extends JFrame {
 
 	private static final long serialVersionUID = 1L;
