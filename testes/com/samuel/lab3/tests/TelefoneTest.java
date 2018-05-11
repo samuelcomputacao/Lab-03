@@ -25,7 +25,7 @@ public class TelefoneTest {
 	 */
 	@Before
 	public void testTelefone() {
-		telefone = new Telefone("83", "993318274", "CASA");
+		telefone = new Telefone("55","83", "993318274", "CASA");
 	}
 	
 	/**
@@ -33,7 +33,7 @@ public class TelefoneTest {
 	 */
 	@Test(expected = RuntimeException.class)
 	public void testTelefoneDddNull() {
-		telefone = new Telefone(null, "993318274", "CASA");
+		telefone = new Telefone("55",null, "993318274", "CASA");
 	}
 	
 	/**
@@ -41,7 +41,7 @@ public class TelefoneTest {
 	 */
 	@Test(expected = RuntimeException.class)
 	public void testTelefoneNumeroNull() {
-		telefone = new Telefone("83", null, "CASA");
+		telefone = new Telefone("55","83", null, "CASA");
 	}
 
 	/**
@@ -49,7 +49,7 @@ public class TelefoneTest {
 	 */
 	@Test(expected = RuntimeException.class)
 	public void testTelefoneCategoriaNull() {
-		telefone = new Telefone("83", "993318274", null);
+		telefone = new Telefone("55","83", "993318274", null);
 	}
 	
 	/**
@@ -57,7 +57,7 @@ public class TelefoneTest {
 	 */
 	@Test
 	public void testToString() {
-		assertEquals("CASA: (83) 993318274", telefone.toString());
+		assertEquals("CASA: 55 (83) 993318274", telefone.toString());
 	}
 
 }

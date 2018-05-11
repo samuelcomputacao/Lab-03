@@ -1,5 +1,6 @@
 package com.samuel.lab3.model;
 
+
 /**
  * Classe que representa um telefone
  * 
@@ -7,6 +8,11 @@ package com.samuel.lab3.model;
  *
  */
 public class Telefone {
+	
+	/**
+	 * Código do país
+	 */
+	private String cod;
 	
 	/**
 	 * ddd do telefone
@@ -29,7 +35,9 @@ public class Telefone {
 	 * @param numero : Representa O número do telefone
 	 * @param categoria : Representa a cetegaria do telefone
 	 */
-	public Telefone(String ddd,String numero, String categoria) {
+	public Telefone(String cod,String ddd,String numero, String categoria) {
+		if(cod==null) throw new RuntimeException("CAMPO CODIGO PAÍS INVÀLIDO");
+		this.cod = cod;
 		if(ddd==null) throw new RuntimeException("CAMPO DDD INVÁLIDO");
 		this.ddd = ddd;
 		if(numero==null) throw new RuntimeException("CAMPO NUMERO INVÁLIDO");
@@ -43,7 +51,7 @@ public class Telefone {
 	 */
 	@Override
 	public String toString() {
-		return this.categoria+": ("+this.ddd+") "+this.numero;
+		return this.categoria+": "+this.cod+" ("+this.ddd+") "+this.numero;
 	}
 
 }

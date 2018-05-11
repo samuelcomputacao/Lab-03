@@ -254,22 +254,25 @@ public class NovoContato extends JFrame{
 				
 				Telefone[] telefones = new Telefone[3];
 				
+				String cod1 = codField1.getText();
 				String ddd1 = dddField1.getText();
 				String telefone1 = telefoneField1.getText();
-				if((ddd1 !=null && ddd1.trim().length()>0)&&(telefone1 !=null && telefone1.trim().length()>0)) {
-					telefones[0]= new Telefone(ddd1, telefone1,"CELULAR");
+				if((ddd1 !=null && ddd1.trim().length()>0)&&(telefone1 !=null && telefone1.trim().length()>0)&&(cod1 != null && cod1.trim().length()>0)) {
+					telefones[0]= new Telefone(cod1,ddd1, telefone1,"CELULAR");
 				}
 				
+				String cod2 = codField2.getText();
 				String ddd2 = dddField2.getText();
 				String telefone2 = telefoneField2.getText();
-				if((ddd2 !=null && ddd2.trim().length()>0)&&(telefone2 !=null && telefone2.trim().length()>0)) {
-					telefones[1]= new Telefone(ddd2, telefone2,"TRABALHO");
+				if((ddd2 !=null && ddd2.trim().length()>0)&&(telefone2 !=null && telefone2.trim().length()>0)&&(cod2 != null && cod2.trim().length()>0)) {
+					telefones[1]= new Telefone(cod2,ddd2, telefone2,"TRABALHO");
 				}
 				
+				String cod3 = codField3.getText();
 				String ddd3 = dddField3.getText();
 				String telefone3 = telefoneField3.getText();
-				if((ddd3 !=null && ddd3.trim().length()>0)&&(telefone3 !=null && telefone3.trim().length()>0)) {
-					telefones[2]= new Telefone(ddd3, telefone3,"CASA");
+				if((ddd3 !=null && ddd3.trim().length()>0)&&(telefone3 !=null && telefone3.trim().length()>0)&&(cod3 != null && cod3.trim().length()>0)) {
+					telefones[2]= new Telefone(cod3,ddd3, telefone3,"CASA");
 				}
 				
 				if((telefones[0]==null && telefones[1]==null) && telefones[2]==null) {

@@ -26,7 +26,7 @@ public class ContatoTest {
 	 */
 	@Before
 	public void testConstruct() {
-		Telefone t = new Telefone("83", "93318274", "CASA");
+		Telefone t = new Telefone("55","83", "93318274", "CASA");
 		Telefone[] telefones = {null,t,null};
 		contato = new Contato("Samuel", "Vasconcelos", telefones, 5);
 	}
@@ -36,7 +36,7 @@ public class ContatoTest {
 	 */
 	@Test(expected = RuntimeException.class)
 	public void testConstructNomeNull() {
-		Telefone t = new Telefone("83", "93318274", "CASA");
+		Telefone t = new Telefone("55","83", "93318274", "CASA");
 		Telefone[] telefones = {null,t,null};
 		contato = new Contato(null, "Vasconcelos", telefones, 5);
 	}
@@ -46,7 +46,7 @@ public class ContatoTest {
 	 */
 	@Test(expected = RuntimeException.class)
 	public void testConstructSobrenomeNull() {
-		Telefone t = new Telefone("83", "93318274", "CASA");
+		Telefone t = new Telefone("55","83", "93318274", "CASA");
 		Telefone[] telefones = {null,t,null};
 		contato = new Contato("Samuel", null, telefones, 5);
 	}
@@ -64,7 +64,7 @@ public class ContatoTest {
 	 */
 	@Test
 	public void testToString() {
-		assertEquals("Contato : Samuel Vasconcelos CASA: (83) 93318274 Nível: Irmão", contato.toString());
+		assertEquals("Contato : Samuel Vasconcelos CASA: 55 (83) 93318274 Nível: Irmão", contato.toString());
 	}
 
 	/**
@@ -72,7 +72,7 @@ public class ContatoTest {
 	 */
 	@Test
 	public void testEquals() {
-		Telefone t = new Telefone("83", "93318274", "CASA");
+		Telefone t = new Telefone("55","83", "93318274", "CASA");
 		Telefone[] telefones = {null,null,t};
 		Contato c = new Contato("Samuel", "José",telefones,5);
 		assertTrue(c.equals(contato));

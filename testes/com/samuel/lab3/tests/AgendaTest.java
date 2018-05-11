@@ -31,7 +31,7 @@ public class AgendaTest {
 	@Before
 	public void testAgenda() {
 		agenda = new Agenda();
-		Telefone t = new Telefone("83", "93318274", "CASA");
+		Telefone t = new Telefone("55","83", "93318274", "CASA");
 		Telefone[] telefones = {null,t,null};
 		agenda.cadastrarContato("Samuel", "Vasconcelos", telefones,1, 1);
 	}
@@ -41,7 +41,7 @@ public class AgendaTest {
 	 */
 	@Test(expected = RuntimeException.class)
 	public void testCadastrarContatoAcima() {
-		Telefone t = new Telefone("83", "93318274", "CASA");
+		Telefone t = new Telefone("55","83", "93318274", "CASA");
 		Telefone[] telefones = {null,t,null};
 		agenda.cadastrarContato("Samuel", "sobrenome", telefones, 0, 102);
 	}
@@ -51,7 +51,7 @@ public class AgendaTest {
 	 */
 	@Test(expected = RuntimeException.class)
 	public void testCadastrarContatoAbaixo() {
-		Telefone t = new Telefone("83", "93318274", "CASA");
+		Telefone t = new Telefone("55","83", "93318274", "CASA");
 		Telefone[] telefones = {null,t,null};
 		agenda.cadastrarContato("Samuel", "sobrenome", telefones, 0, 0);
 	}
@@ -61,7 +61,7 @@ public class AgendaTest {
 	 */
 	@Test
 	public void testListarContato() {
-		assertEquals("Contato : Samuel Vasconcelos CASA: (83) 93318274 Nível: Distante"+System.lineSeparator(), agenda.listarContato());
+		assertEquals("Contato : Samuel Vasconcelos CASA: 55 (83) 93318274 Nível: Distante"+System.lineSeparator(), agenda.listarContato());
 	}
 
 	/**
@@ -69,7 +69,7 @@ public class AgendaTest {
 	 */
 	@Test
 	public void testExibirContato() {
-		assertEquals("Contato : Samuel Vasconcelos CASA: (83) 93318274 Nível: Distante",agenda.exibirContato(1));
+		assertEquals("Contato : Samuel Vasconcelos CASA: 55 (83) 93318274 Nível: Distante",agenda.exibirContato(1));
 	}
 
 	/**
