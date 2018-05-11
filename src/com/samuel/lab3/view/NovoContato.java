@@ -37,6 +37,9 @@ public class NovoContato extends JFrame{
 	private JButton cancelar;
 	private JButton salvar;
 	private JComboBox<String> box;
+	private JTextField codField1;
+	private JTextField codField2;
+	private JTextField codField3;
 	private JTextField dddField1;
 	private JTextField dddField2;
 	private JTextField dddField3;
@@ -128,12 +131,15 @@ public class NovoContato extends JFrame{
 		JPanel telefone1 = new JPanel(new FlowLayout());
 		JLabel celular = new JLabel("Celular:       ");
 		celular.setFont(font);
+		codField1 = new JTextField(3);
+		codField1.setFont(font);
 		dddField1= new JTextField(3);
 		dddField1.setFont(font);
 		telefoneField1= new JTextField(10	);
 		telefoneField1.setFont(font);
 		
 		telefone1.add(celular);
+		telefone1.add(codField1);
 		telefone1.add(dddField1);
 		telefone1.add(telefoneField1);
 		
@@ -142,11 +148,14 @@ public class NovoContato extends JFrame{
 		JPanel telefone2 = new JPanel(new FlowLayout());
 		JLabel trabalho = new JLabel("Trabalho:    ");
 		trabalho.setFont(font);
+		codField2 = new JTextField(3);
+		codField2.setFont(font);
 		dddField2= new JTextField(3);
 		dddField2.setFont(font);
 		telefoneField2= new JTextField(10	);
 		telefoneField2.setFont(font);
 		telefone2.add(trabalho);
+		telefone2.add(codField2);
 		telefone2.add(dddField2);
 		telefone2.add(telefoneField2);
 		panelTelfones.add(telefone2,BorderLayout.CENTER);
@@ -154,11 +163,14 @@ public class NovoContato extends JFrame{
 		JPanel telefone3 = new JPanel(new FlowLayout());
 		JLabel casa = new JLabel("Casa:          ");
 		casa.setFont(font);
+		codField3 = new JTextField(3);
+		codField3.setFont(font);
 		dddField3= new JTextField(3);
 		dddField3.setFont(font);
 		telefoneField3= new JTextField(10	);
 		telefoneField3.setFont(font);
 		telefone3.add(casa);
+		telefone3.add(codField3);
 		telefone3.add(dddField3);
 		telefone3.add(telefoneField3);
 		panelTelfones.add(telefone3,BorderLayout.SOUTH);
