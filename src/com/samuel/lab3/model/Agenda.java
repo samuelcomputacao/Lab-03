@@ -119,6 +119,7 @@ public class Agenda {
 	 * @param sobrenome: Representa o sobrenome do contato a ser adicionado
 	 * @param telefones: Representa os telefones do acontato a ser adicionado
 	 * @param i: Representa a posição que será ocupada pelo contato
+	 * @param nivel : Representa o nível de amizade do contato
 	 * @return : Retorna um boleano representando se o contato foi adicionado
 	 */
 	public boolean cadastrarContato(String nome, String sobrenome, Telefone[] telefones, int nivel, int i) {
@@ -192,7 +193,7 @@ public class Agenda {
 	
 	/**
 	 * Método responsável por buscar todo os contatos com o nível igual ao que foi especificado
-	 * @param i : Nível que será utilizado para encontrar todos igual a ele
+	 * @param nivel : Nível que será utilizado para encontrar todos igual a ele
 	 * @return Uma lista de String reseprentando todos os contatos com o nível igual ao que foi passado comoparametro
 	 */
 	public List<String> buscaPorNivelAmizade(int nivel) {
