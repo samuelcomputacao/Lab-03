@@ -22,6 +22,9 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import com.samuel.lab3.model.Agenda;
+import com.samuel.lab3.model.Contato;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -36,6 +39,7 @@ public class Menu extends JFrame {
 
 	private JMenuItem novo;
 	private JMenuItem exibir;
+	private JMenuItem listar;
 	private JButton botaoSair;
 	private JButton botaoAtualizar;
 	private JMenuItem qtdPorNivel;
@@ -48,6 +52,7 @@ public class Menu extends JFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+
 
 	public Menu(Agenda agenda) {
 		this.agenda = agenda;
@@ -72,9 +77,12 @@ public class Menu extends JFrame {
 		novo = new JMenuItem("Novo");
 
 		exibir = new JMenuItem("exibir");
+		
+		listar = new JMenuItem("Listar");
 
 		contato.add(novo);
 		contato.add(exibir);
+		contato.add(listar);
 
 		JMenu outros = new JMenu("Outros");
 
@@ -133,7 +141,26 @@ public class Menu extends JFrame {
 		setClickAtualizar();
 		setClickQtdPorNivel();
 		setClickMediaAmizade();
+		setClickListar();
 
+	}
+
+	private void setClickListar() {
+		listar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Contato[] contatos = agenda.getContatos();
+				List<String> lista = new ArrayList<String>();
+				for(Contato contato : contatos) {
+					if(contato!=null)
+						lista.add(contato.toString());
+				}
+				new Scroll(lista);
+				
+			}
+		});
+		
 	}
 
 	private void setClickMediaAmizade() {
@@ -171,7 +198,7 @@ public class Menu extends JFrame {
 		String[] opcoesNiveis = { "Distante", "Colega", "Amigo", "Amigão", "Irmão" };
 		String initialSelection = "Distante";
 		boolean sair = false;
-		int j = 0;
+		int j = 1;
 		do {
 			Object nivel = JOptionPane.showInputDialog(null, "Escolha o nível de amizade", "Níveis de amizade",
 					JOptionPane.QUESTION_MESSAGE, null, opcoesNiveis, initialSelection);
@@ -179,16 +206,16 @@ public class Menu extends JFrame {
 			if (nivel != null) {
 				switch (nivel.toString()) {
 				case "Colega":
-					j = 1;
-					break;
-				case "Amigo":
 					j = 2;
 					break;
-				case "Amigão":
+				case "Amigo":
 					j = 3;
 					break;
-				case "Irmão":
+				case "Amigão":
 					j = 4;
+					break;
+				case "Irmão":
+					j = 5;
 					break;
 				}
 				result = new Object[] { j, nivel.toString() };

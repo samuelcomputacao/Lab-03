@@ -29,11 +29,21 @@ public class Agenda {
 	 * Número de contatos cadastrado no sistema
 	 */
 	private int cadastrados;
-
+	
 	/**
-	 * Construtor da agenda. Ele consome dados de um arquivo onde é salvo os contatos toda vez que o programa é finalizado.
+	 * Construtor responsável por iniciar os atributos de contatos e cadastrados
 	 */
 	public Agenda() {
+		this.contatos = new Contato[100];
+		this.cadastrados = 0;
+	}
+
+	/**
+	 * Método responsável por consumir dados apartir de arquivos json 
+	 * @param contatos : arquivo json representando um arrau de contatos
+	 * @param qtdCadastrados : um arquivo json representando a quanridade de conttaos já cadastrado no sistema
+	 */
+	public void consumirDados(File contatos, File qtdCadastrados) {
 		Gson gson = new Gson();
 		try {
 			File file = new File(new File("").getAbsolutePath() + "/file/contatos.json");
@@ -46,7 +56,7 @@ public class Agenda {
 				}
 
 			} else {
-				contatos = new Contato[100];
+				this.contatos = new Contato[100];
 			}
 			File file1 = new File(new File("").getAbsolutePath() + "/file/cadastrados.json");
 			if (file1.exists()) {
@@ -60,7 +70,6 @@ public class Agenda {
 		} catch (FileNotFoundException e) {
 
 		}
-
 	}
 
 	/**
@@ -245,5 +254,9 @@ public class Agenda {
 	 */
 	public int getTamanho() {
 		return this.contatos.length;
+	}
+
+	public Contato[] getContatos() {
+		return this.contatos;
 	}
 }
